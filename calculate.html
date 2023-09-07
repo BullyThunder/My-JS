@@ -129,6 +129,10 @@ table_clear.addEventListener('click', function (){
     }
     addRow=[];
 });
+
+clear.addEventListener('click', function (){
+   form.reset();
+});
 calc.addEventListener('click', function () {
     let num = 0;
      kmValue = parseFloat(km.value); // Получаем значение километража
