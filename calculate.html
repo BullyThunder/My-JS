@@ -26,13 +26,16 @@
         <button class="button__clear">Очистить</button>
     </div>
 </div>
-<table id="result">
+<table class="result">
     <tr>
       <th>Киллометраж</th>
       <th>Израсходованное топливо</th>
       <th>Средний расход топлива</th>
     </tr>
   </table>
+  <div class="table__clear">
+    <button class="table__button__clear">Очистить</button>
+</div>
 </body>
 
 <style>
@@ -90,6 +93,21 @@
         min-width: 30px;
         min-height: 10px;
     }
+    .table__button__clear{
+        background-color: orange;
+        color: red;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .table__clear{
+        display: flex;
+        justify-content: center;
+        max-width: 500px;
+        padding-top: 40px;
+    }
 </style>
 <script src="https://cdn.jsdelivr.net/lodash/4.10.0/lodash.js"></script> 
 <script>
@@ -99,14 +117,22 @@ let fuel = document.querySelector('.form__input_fuel');
 let calc = document.querySelector('.button__calc');
 let form = document.querySelector('.form')
 let clear = document.querySelector('.button__clear');
+let table_clear = document.querySelector('.table__button__clear');
+let kmValue;
+let fuelValue;
+let num;
+let addRow = [];
 
-clear.addEventListener('click', function(){ 
-    form.reset();
+table_clear.addEventListener('click', function (){
+    for (const row of addRow){
+        row.remove();
+    }
+    addRow=[];
 });
 calc.addEventListener('click', function () {
     let num = 0;
-    let kmValue = parseFloat(km.value); // Получаем значение километража
-    let fuelValue = parseFloat(fuel.value); // Получаем значение израсходованного топлива
+     kmValue = parseFloat(km.value); // Получаем значение километража
+     fuelValue = parseFloat(fuel.value); // Получаем значение израсходованного топлива
     if(kmValue<0 || fuelValue<0){
         alert("Вы ввели отрицательное число");
     }
@@ -118,11 +144,12 @@ calc.addEventListener('click', function () {
         alert('Пожалуйста, введите корректные числовые значения для километража и израсходованного топлива.');
     }
     }
-    const table = document.getElementById("result");
-    const newRow = table.insertRow();
-    const cell1 = newRow.insertCell(0);
-    const cell2 = newRow.insertCell(1);
-    const cell3 = newRow.insertCell(2);
+    let table = document.querySelector(".result");
+    let newRow = table.insertRow();
+    addRow.push(newRow);
+    let cell1 = newRow.insertCell(0);
+    let cell2 = newRow.insertCell(1);
+    let cell3 = newRow.insertCell(2);
 
     cell1.innerHTML = kmValue;
     cell2.innerHTML = fuelValue;
