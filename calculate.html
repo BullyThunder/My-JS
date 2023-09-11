@@ -193,15 +193,15 @@ function litrestogallones(fuel){
 
 change.addEventListener('click', function (){
     let num =0;
-    miles = parseFloat(kmtomiles());
-    gallones = parseFloat(litrestogallones());
-     if(miles<0 || gallones<0){
+    let milesValue = parseFloat(kmtomiles(document.getElementById("inputMPH").value));
+    let gallonesValue = parseFloat(litrestogallones(document.getElementById("inputLtr").value));
+     if(milesValue<0 || gallonesValue<0){
         alert("Вы ввели отрицательное число");
     }
     else{
-    if (!isNaN(miles) && !isNaN(gallones)) {
-        num = (miles / gallones) * 100;
-        alert(Number(num));
+    if (!isNaN(milesValue) && !isNaN(gallonesValue)) {
+        num = (milesValue / gallonesValue);
+        alert(num.toFixed(3));
     } else {
         alert('Пожалуйста, введите корректные числовые значения для километража и израсходованного топлива.');
     }
@@ -213,9 +213,9 @@ change.addEventListener('click', function (){
     let cell2 = newRow.insertCell(1);
     let cell3 = newRow.insertCell(2);
 
-    cell1.innerHTML = miles;
-    cell2.innerHTML = gallones;
-    cell3.innerHTML = num;
+    cell1.innerHTML = (milesValue.toFixed(2));
+    cell2.innerHTML = (gallonesValue.toFixed(2));
+    cell3.innerHTML = (num.toFixed(2));
     
 });
 </script>
