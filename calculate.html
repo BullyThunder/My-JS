@@ -10,20 +10,44 @@
 <body>
     <div class="block">
     <form class="form">
+        <div class="form__flex">
     <div class="form_km">
         <span>Киллометраж</span>
-        <input class="form__input" type="text">
+        <input class="form__input" id="inputMPH" type="text"
+        oninput="kmtomiles(this.value)"
+        onchange="kmtomiles(this.value)">
     </div>
+    <div class="form_km">
+        <span>Мили</span>
+        <input id="outputKPH" class="form__input_miles" type="text">
+    </div>
+    </div>
+    <div class="form__flex">
     <div class="form">
         <span>Израсходованное топливо</span>
-        <input class="form__input_fuel" type="text">
+        <input  class="form__input_fuel" id="inputLtr" type="text"
+        oninput="litrestogallones(this.value)"
+        onchange="litrestogallones(this.value)">
     </div>
+    <div class="form">
+        <span>Израсходованное топливо(галлоны)</span>
+        <input id="outputGln" class="form__input_gallons" type="text">
+    </div>
+</div>
 </form>
+<div class="button__block">
     <div class="calc">
         <button class="button__calc">Рассчитать</button>
     </div>
     <div class="clear">
         <button class="button__clear">Очистить</button>
+    </div>
+</div>
+<div class="button__block">
+    <div class="change">
+        <button class="button__change">Рассчитать с новыми единицами измерения</button>
+    </div>
+  
     </div>
 </div>
 <table class="result">
@@ -39,9 +63,26 @@
 </body>
 
 <style>
+    .form__flex{
+        display: flex;
+        column-gap: 30px;
+    }
+    .button__block{
+        display: flex;
+        column-gap: 30px;
+    }
      tr, Th {
     padding: 3px; /* Поля вокруг содержимого таблицы */
     border: 1px solid black; /* Параметры рамки */
+   }
+   button{
+    background-color: orange;
+        color: red;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 10px;
    }
     html{
         font-size: 20px;
@@ -53,24 +94,8 @@
         justify-content: center;
         row-gap: 40px;
     }
-    .button__calc{
-        background-color: orange;
-        color: red;
-        border: 1px solid transparent;
-        cursor: pointer;
-        font-size: 20px;
-        padding: 10px;
-        border-radius: 10px;
-    }
-    .button__clear{
-        background-color: orange;
-        color: red;
-        border: 1px solid transparent;
-        cursor: pointer;
-        font-size: 20px;
-        padding: 10px;
-        border-radius: 10px;
-    }
+   
+    
     .block{
         display: flex;
         flex-direction: column;
@@ -93,15 +118,7 @@
         min-width: 30px;
         min-height: 10px;
     }
-    .table__button__clear{
-        background-color: orange;
-        color: red;
-        border: 1px solid transparent;
-        cursor: pointer;
-        font-size: 20px;
-        padding: 10px;
-        border-radius: 10px;
-    }
+   
     .table__clear{
         display: flex;
         justify-content: center;
@@ -118,6 +135,9 @@ let calc = document.querySelector('.button__calc');
 let form = document.querySelector('.form')
 let clear = document.querySelector('.button__clear');
 let table_clear = document.querySelector('.table__button__clear');
+let gallones = document.querySelector('.form__input_gallons');
+let miles = document.querySelector('.form__input_miles');
+let change = document.querySelector('.button__change');
 let kmValue;
 let fuelValue;
 let num;
@@ -160,6 +180,44 @@ calc.addEventListener('click', function () {
     cell3.innerHTML = num;
 });
 
+function kmtomiles(km){
+    let miles = parseFloat(km) * 0.6213712;
+    document.getElementById("outputKPH").value = miles;
+    return Number(miles);
+}
+function litrestogallones(fuel){
+    let gallones = parseFloat(fuel) * 0.264172;
+    document.getElementById("outputGln").value = gallones ;
+    return Number(gallones);
+}
+
+change.addEventListener('click', function (){
+    let num =0;
+    miles = parseFloat(kmtomiles());
+    gallones = parseFloat(litrestogallones());
+     if(miles<0 || gallones<0){
+        alert("Вы ввели отрицательное число");
+    }
+    else{
+    if (!isNaN(miles) && !isNaN(gallones)) {
+        num = (miles / gallones) * 100;
+        alert(Number(num));
+    } else {
+        alert('Пожалуйста, введите корректные числовые значения для километража и израсходованного топлива.');
+    }
+}
+     let table = document.querySelector(".result");
+    let newRow = table.insertRow();
+    addRow.push(newRow);
+    let cell1 = newRow.insertCell(0);
+    let cell2 = newRow.insertCell(1);
+    let cell3 = newRow.insertCell(2);
+
+    cell1.innerHTML = miles;
+    cell2.innerHTML = gallones;
+    cell3.innerHTML = num;
+    
+});
 </script>
 
 
