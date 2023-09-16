@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    
+</head>
+<body>
+    <div class="block">
+        <button class="block__button">Click me</button>
+        <span  class="input__click" id="inputLtr"  >0</span>
+        <button class="block__clear">Clear</button>
+        <button class="table__entry">Запись в таблицу</button>
+    </div>
+    <div class="table__block">
+    <table class="result">
+        <tr>
+          <th>Попытка</th>
+          <th>Количество кликов</th>
+        </tr>
+      </table>
+      <button class="button__clear">Очистить таблицу</button>
+    </div>
+</body>
+
+<style>
+    .table__block{
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+        max-width: 300px;
+    }
+    button{
+        min-width: 200px;
+        border: 1px solid blue;
+        padding: 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: white;
+        max-width: 240px;
+        display: flex;
+        justify-content: center;
+    }
+    .table__entry{
+        min-width: 200px;
+        border: 1px solid blue;
+        padding: 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: white;
+        max-width: 240px;
+        display: flex;
+        justify-content: center;
+    }
+    .block__clear{
+        min-width: 200px;
+        border: 1px solid blue;
+        padding: 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        background-color: white;
+        max-width: 240px;
+        display: flex;
+        justify-content: center;
+    }
+    .input__click{
+        border: 1px solid blue;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: white;
+        max-width: 240px;
+        display: flex;
+        justify-content: center;
+    }
+   .block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 50px;
+    margin-top: 40px;
+   }
+   .block__button{
+    max-width: 200px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid blue;
+    cursor: pointer;
+   }
+   @media (max-width: 426px){
+    .block__clear{
+        max-width: 100px;
+        min-width: none;
+    }
+   }
+</style>
+<script src="https://cdn.jsdelivr.net/lodash/4.10.0/lodash.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+<script>
+    'use strict'
+    let count = 0;
+   let button = document.querySelector('.block__button');
+   let input = document.querySelector('.input__click');
+   let clear = document.querySelector('.block__clear');
+   let record = document.querySelector('.table__entry')
+   let table = document.querySelector('.result');
+   let table__clear = document.querySelector('.button__clear');
+    clear.addEventListener("click", function(){
+        input.textContent = "0";
+        count = 0;
+    });
+    button.addEventListener("click", function() {
+        count++;
+        input.innerHTML = `${count}`;
+    });
+    record.addEventListener("click", function(){
+         UpdateTableNumeration();
+        let newRow = table.insertRow();
+        let cell1 = newRow.insertCell(0);
+        let cell2 = newRow.insertCell(1);
+        cell1.innerHTML = i;
+        cell2.innerHTML = count;
+    });
+    function UpdateTableNumeration(){
+        $('.result tr ').each(function(i) {
+          $(this).find('td:first').text(i + "1");
+    });
+    }
+    $('.button__clear').on('click', function(){
+        $('.result tr').remove();
+    });
+    
+</script>
+
+
+</html>
