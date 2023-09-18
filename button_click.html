@@ -103,36 +103,33 @@
   <script src="js/jquery.fancybox.min.js"></script>
 <script>
     'use strict'
-    let count = 0;
+    let Click_count = 0;
+    let table_Row_count = 0;
    let button = document.querySelector('.block__button');
    let input = document.querySelector('.input__click');
    let clear = document.querySelector('.block__clear');
    let record = document.querySelector('.table__entry')
    let table = document.querySelector('.result');
    let table__clear = document.querySelector('.button__clear');
+
     clear.addEventListener("click", function(){
         input.textContent = "0";
-        count = 0;
+        Click_count = 0;
     });
     button.addEventListener("click", function() {
-        count++;
-        input.innerHTML = `${count}`;
+        Click_count++;
+        input.innerHTML = `${Click_count}`;
     });
     record.addEventListener("click", function(){
-         UpdateTableNumeration();
+         table_Row_count = table.rows.length;
         let newRow = table.insertRow();
         let cell1 = newRow.insertCell(0);
         let cell2 = newRow.insertCell(1);
-        cell1.innerHTML = i;
-        cell2.innerHTML = count;
+        cell1.innerHTML = table_Row_count;
+        cell2.innerHTML = Click_count;
     });
-    function UpdateTableNumeration(){
-        $('.result tr ').each(function(i) {
-          $(this).find('td:first').text(i + "1");
-    });
-    }
     $('.button__clear').on('click', function(){
-        $('.result tr').remove();
+        $('.result tr td').remove();
     });
     
 </script>
