@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="counter">
+        Счётчик: {{counter}};
+    </div>
+    <div>
+        <button id="stop">Stop timer</button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+   
+    <script type="text/javascript">
+        let stop = document.querySelector('#stop');
+     const Counter = {
+        data(){
+            return {
+                counter:0,
+                intervalId: null
+            };
+        },
+        mounted(){
+           this.intervalId = setInterval(()=>{
+                this.counter++;
+            },1000)
+        },
+       beforeMount(){
+            clearInterval(this.intervalId);
+        }
+     };
+
+     Vue.createApp(Counter).mount('#counter');
+     Vue.createApp(Counter).beforeMount('#counter');
+    </script>
+</body>
+</html>

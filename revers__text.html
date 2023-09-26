@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3"></script>
+  <title>Пример двусторонней привязки</title>
+</head>
+<body>
+  <div id="event-handling">
+    <h1>{{ title }} : {{ counter + 2 / 4 }}</h1>
+    <button v-on:click="counter++">Добавить</button>
+    <button v-on:click="counter--">Удалить</button>
+
+    <h2>Посмотрите наш текст: {{ subtitle }}</h2>
+    <input v-on:input="saySomething" type="text">
+  </div>
+
+  <script>
+    const Two_Way_Binding = {
+      data() {
+        return {
+          counter: 0,
+          title: 'наш счетчик',
+          subtitle: ''
+        }
+      },
+      methods: {
+        saySomething(event) {
+          this.subtitle = event.target.value
+        }
+      },
+      mounted(){
+        console.log("Computed");
+      }
+    }
+
+    Vue.createApp(Two_Way_Binding).mount('#event-handling');
+  </script>
+</body>
+</html>
