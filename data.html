@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пример двусторонней привязки</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ title }} : {{ counter}}</h1>
+    <button @click="addCounter(5, 'Изменили на 5', $event)">Добавить на 5 единиц </button>
+    <button @click="addCounter(10, 'Изменили на 10', $event)">Добавить на 10 единиц</button>
+    <button @click="subCounter(5)">Отнять на 5 единиц</button>
+    <div>
+    <h2>Посмотрите наш текст: {{ subtitle }}</h2>
+    <input v-on:input="saySomething" type="text">
+  </div>
+  <div>
+    <hr>
+    <template v-if="isVisible">
+      <h2>Hello world</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At omnis non doloremque nesciunt, vero dolores 
+        atque amet .</p>
+    </template>
+    <template v-else>
+      <h2 style="color: green;">Hello world</h2>
+      <p style="color: green;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At omnis non doloremque nesciunt, vero dolores 
+        atque amet .</p>
+    </template>
+  <hr>
+  <ul>
+    <li v-for="(student,index) of students">{{index+1}}.{{student.name}} - {{student.age}}</li>
+    <hr>
+    <li v-for="(value,index) of person">{{index+1}}.{{value.name}} - {{value.age}} - {{value.job}}</li>
+  </ul>
+
+  <form action="">
+    <span>
+      {{count}}/ 30
+    </span>
+  </form>
+  <textarea v-model="textValue"></textarea>
+  <button v-if="count <=30">send</button>
+  </div>
+  </div>
+  <style>
+    ul{
+     list-style: none;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+  <script>
+    const app = {
+      data(){
+        return{
+          counter:4,
+          title: "Our counter",
+          subtitle: '',
+          isVisible: false,
+          char:'input',
+          students: [
+            {name:'Andrey', age:15},
+            {name:'Boris', age:26},
+            {name:'Stepan', age:26},
+          ],
+          person:[
+          {name:'Andrey', age:15, job:'Frontend'},
+          {name:'Ruslan', age:23, job:'Backend'},
+          {name:'Natasha', age:43, job:'Full-stack'},
+          ],
+          textValue:''
+        }
+      },
+      computed: {
+          count: function(){
+            return this.textValue.length
+          }
+        },
+      watch:{
+        textValue: function(){
+          console.log(this.textValue)
+        }
+      },
+      methods:{
+        saySomething (){
+          this.subtitle = event.target.value
+        },
+        addCounter(num,str, event){
+          this.counter += num,
+          this.title = str
+          if (num === 5){
+            event.target.style.color = 'red';
+          }
+          else if (num ===10){
+            event.target.style.color = 'yellow';
+          }
+        },
+        subCounter(num){
+          this.counter -= num
+        },
+      }
+    }
+    Vue.createApp(app).mount("#app");
+  </script>
+</body>
+</html>

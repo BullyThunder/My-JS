@@ -1,42 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
+  <title>Пример v-if в Vue.js</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/vue@3"></script>
-  <title>Пример двусторонней привязки</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
-  <div id="event-handling">
-    <h1>{{ title }} : {{ counter + 2 / 4 }}</h1>
-    <button v-on:click="counter++">Добавить</button>
-    <button v-on:click="counter--">Удалить</button>
+  <div id="app">
+    <button>ff</button>
+    <button @click="toggleElement">Переключить элемент</button>
 
-    <h2>Посмотрите наш текст: {{ subtitle }}</h2>
-    <input v-on:input="saySomething" type="text">
+    <!-- Элемент, который будет отображен/скрыт -->
+    <div v-if="showElement">
+      Этот элемент будет отображен, если showElement равно true.
+    </div>
   </div>
-
   <script>
-    const Two_Way_Binding = {
-      data() {
-        return {
-          counter: 0,
-          title: 'наш счетчик',
-          subtitle: ''
-        }
+    const counter = ({
+      el: '#app',
+      data: {
+        showElement: false
       },
       methods: {
-        saySomething(event) {
-          this.subtitle = event.target.value
+        toggleElement() {
+          this.showElement = !this.showElement;
         }
-      },
-      mounted(){
-        console.log("Computed");
       }
-    }
-
-    Vue.createApp(Two_Way_Binding).mount('#event-handling');
+    });
+    
   </script>
 </body>
 </html>

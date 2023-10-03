@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Пример v-if в Vue.js</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <p>кнопка была нажата {{counter}} раз</p>
+    <button @click="counter++">Добавить</button>
+    <div>
+        <button @click="say('hello')"></button>
+        <button @click="say('hello')"></button>
+    </div>
+    <div>
+      <ul>
+      <li v-for="(item,index) of items">{{index+1}}.{{item.id}} - {{item.name}} </li>
+    </ul>
+    </div>
+  </div>
+  <style>
+    button{
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+  <script>
+    const app = {
+        data(){
+            return{
+                counter:0,
+                items:[ { id: 'id1', name: 'Mike' },
+                { id: "id2", name: "15 years old" },
+                { id: "id3", name: "Danny" },
+                  { id: "id4", name: "25 years old" },],
+            }
+        },
+        methods:{
+            say(message){
+              return{
+                message: alert(message)
+              }
+                }
+            }
+        }
+    Vue.createApp(app).mount("#app")
+  </script>
+</body>
+</html>
